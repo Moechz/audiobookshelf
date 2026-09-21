@@ -32,7 +32,7 @@ RUN cd client \
     && npm run generate \
     && cd .. \
     && npm ci --unsafe-perm=true --allow-root \
-    && npx --yes @yao-pkg/pkg@6.22.0 -t node20-linux-x64 -o /build/audiobookshelf-sea-x86_64 . \
+    && npx --yes @yao-pkg/pkg@5.16.1 -t node20-linux-x64 -o /build/audiobookshelf-sea-x86_64 . \
     && chmod 0755 /build/audiobookshelf-sea-x86_64 \
     && file /build/audiobookshelf-sea-x86_64 \
     && sha256sum /build/audiobookshelf-sea-x86_64

@@ -34,7 +34,7 @@ cd ..
 echo "==> 构建服务端依赖 + pkg 打包"
 rm -rf node_modules
 npm ci --unsafe-perm=true --allow-root
-npx --yes @yao-pkg/pkg@6.22.0 -t node20-linux-x64 -o "$(dirname "$PWD")/$OUT" .
+npx --yes @yao-pkg/pkg@5.16.1 -t node20-linux-x64 -o "$(dirname "$PWD")/$OUT" .
 
 echo "==> 完成: $OUT"
 file "$(dirname "$PWD")/$OUT"
