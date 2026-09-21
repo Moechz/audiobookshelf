@@ -11,6 +11,9 @@
 #
 # pkg-fetch 拉取的 node20-linux-x64 fetch binary 是唯一外部预编译物：
 # 其 sha256 随构建日志输出并记入 PROVENANCE.md（官方源 + 锁哈希）。
+# 工具链注：上游 linuxpackager 未锁 pkg 版本；vercel/pkg 5.1.1 的
+# pkg-fetch 不支持 node20 target，采用社区维护 fork @yao-pkg/pkg@6.22.0
+# （pkg-fetch 3.6.5，支持 node20）。
 #
 # 触发：手动（workflow_dispatch）或打 v* tag。
 # 用法：Actions 页手动触发 → 填上游版本号（如 2.36.0）→ 跑完把
@@ -65,7 +68,7 @@ jobs:
           cd ..
           rm -rf node_modules
           npm ci --unsafe-perm=true --allow-root
-          npx pkg -t node20-linux-x64 -o ../audiobookshelf-sea-x86_64 .
+          npx --yes @yao-pkg/pkg@6.22.0 -t node20-linux-x64 -o ../audiobookshelf-sea-x86_64 .
           cd ..
           chmod 0755 audiobookshelf-sea-x86_64
           file audiobookshelf-sea-x86_64
@@ -80,7 +83,7 @@ jobs:
           rm -rf client/node_modules node_modules
           cd client && npm ci --unsafe-perm=true --allow-root && cd ..
           npm ci --unsafe-perm=true --allow-root
-          npx pkg -t node20-linux-x64 -o ../audiobookshelf-sea-2nd . .
+          npx --yes @yao-pkg/pkg@6.22.0 -t node20-linux-x64 -o ../audiobookshelf-sea-2nd .
           cd ..
           h1=$(sha256sum audiobookshelf-sea-x86_64 | cut -d' ' -f1)
           h2=$(sha256sum audiobookshelf-sea-2nd | cut -d' ' -f1)

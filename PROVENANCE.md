@@ -18,7 +18,7 @@
 | 模式 | 来源 | 状态 |
 |---|---|---|
 | `compat`（本地/真机功能验证） | 上游官方 PPA deb（advplyr.github.io/audiobookshelf-ppa），sha256 pin 于 config.env；上游构建配方（build/linuxpackager）与源码全公开 | 2.36.0-2 当前默认 |
-| `source`（**商店提交必须**） | 本仓库 GitHub Actions `build-sea` workflow 从上游 tag 源码自建：Node 20.11.1 + `pkg -t node20-linux-x64`（复刻上游 build/linuxpackager 逐字命令），连续两次构建哈希互证；pkg-fetch 的 node fetch binary（vercel/pkg-fetch 官方 Release）sha256 记录于 workflow 日志 | 待建仓首跑（D-015） |
+| `source`（**商店提交必须**） | 本仓库 GitHub Actions `build-sea` workflow 从上游 tag 源码自建：Node 20.11.1 + `@yao-pkg/pkg@6.22.0 -t node20-linux-x64`（上游 linuxpackager 未锁 pkg 版本，vercel/pkg 不支持 node20 target，故用社区 fork；命令序列与上游一致），连续两次构建哈希互证；pkg-fetch 的 node fetch binary sha256 记录于 workflow 日志 | 待建仓首跑（D-015） |
 
 ## 版本记录
 
