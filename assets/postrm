@@ -1,0 +1,36 @@
+#!/bin/bash
+# postrm - 删除/清除后处理（官方模板 + 本应用清理项）
+set -e
+
+MAINT_LOG=/var/log/audiobookshelf-maint.log
+mkdir -p /var/log 2>/dev/null || true
+echo "$(date '+%F %T') postrm $*" >> "$MAINT_LOG" 2>/dev/null || true
+
+systemctl daemon-reload 2>/dev/null || true
+
+if [ "$1" = "purge" ]; then
+  # 应用数据库、元数据、封面缓存、备份（含账号与库配置——purge 即全部清除）
+  rm -rf /var/lib/audiobookshelf
+  # 系统层注册文件（postinst 兜底安装的）+ 本包生成的降级 drop-in
+  # （drop-in 只删本包已知文件名，绝不整目录删——可能有管理员配置，坑 27）
+  rm -f /etc/systemd/system/audiobookshelf.service
+  rm -f /etc/systemd/system/audiobookshelf.service.d/80-audiobookshelf-exec-compat.conf
+  rmdir --ignore-fail-on-non-empty /etc/systemd/system/audiobookshelf.service.d 2>/dev/null || true
+  rm -f /etc/nginx/conf.d/audiobookshelf.conf
+  # 包清单外的派生文件（postinst 解压的 webui、首装 env）——dpkg 不删非空目录，
+  # purge 语义全清，补刀后移除空目录
+  rm -rf /usr/local/audiobookshelf
+  # 运行用户
+  if id -u audiobookshelf > /dev/null 2>&1; then
+    userdel audiobookshelf 2>/dev/null || true
+  fi
+  systemctl daemon-reload 2>/dev/null || true
+  # nginx 路由移除后重载生效
+  if command -v nginx > /dev/null 2>&1 && nginx -t > /dev/null 2>&1; then
+    nginx -s reload > /dev/null 2>&1 || true
+  fi
+  # 注：/var/log/audiobookshelf-maint.log 保留（purge 取证用）
+  # 注：/usr/local/audiobookshelf 由 dpkg 按包清单删除
+fi
+
+exit 0

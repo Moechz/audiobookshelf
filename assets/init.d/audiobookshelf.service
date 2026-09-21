@@ -1,0 +1,49 @@
+[Unit]
+Description=Audiobookshelf self-hosted audiobook and podcast server
+Documentation=https://www.audiobookshelf.org/docs
+After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+User=audiobookshelf
+Group=audiobookshelf
+WorkingDirectory=/usr/local/audiobookshelf
+EnvironmentFile=-/usr/local/audiobookshelf/audiobookshelf.env
+# URL 前缀锁定为 /audiobookshelf（应用原生 base path，与 TOS 路由一致；
+# EnvironmentFile 的同名变量可覆盖此默认）
+Environment=ROUTER_BASE_PATH=/audiobookshelf
+# 运行时伴生二进制走 TOS 系统包（V6 合规：不随包分发预编译 ffmpeg ELF；
+# TOS 7 基座 Ubuntu 22.04 universe 预装/可装 ffmpeg 4.4.x）。
+# SKIP_BINARIES_CHECK=1：跳过 BinaryManager 的 5.1 版本白名单校验
+# （系统包为 4.4.x，不跳过会触发在线下载——违反 S8）；该模式下仅要求
+# ffmpeg/ffprobe 的 env 路径已设置（libnusqlite3 为可选组件，不设即不加载）
+Environment=FFMPEG_PATH=/usr/bin/ffmpeg
+Environment=FFPROBE_PATH=/usr/bin/ffprobe
+Environment=SKIP_BINARIES_CHECK=1
+# 监听地址/端口/数据目录一律写死在 flags（安全敏感项不进 env，navidrome 模式）：
+# systemd 的 ExecStart 只支持基本 ${VAR} 展开，不支持 shell 风格 ${VAR:-默认值}
+# （曾致全环境 502，见打包指南坑 1）；如确需修改，编辑本文件副本
+# /etc/systemd/system/audiobookshelf.service 后
+#   systemctl daemon-reload && systemctl restart audiobookshelf
+ExecStart=/usr/local/audiobookshelf/bin/audiobookshelf --config /var/lib/audiobookshelf/config --metadata /var/lib/audiobookshelf/metadata --port 13378 --host 127.0.0.1
+TimeoutStartSec=60
+TimeoutStopSec=20
+# 注意：按 TOS 规范不配置 Restart/RestartSec——生命周期由应用中心统一管理
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/audiobookshelf
+LimitNOFILE=65536
+UMask=0027
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+Package: audiobookshelf
+Version: @VERSION@
+Architecture: @ARCH@
+Maintainer: @MAINTAINER@
+Installed-Size: @SIZE@
+Depends: systemd, ffmpeg
+Section: utils
+Priority: optional
+Homepage: https://www.audiobookshelf.org
+Description: Self-hosted audiobook and podcast server for TOS
+ Audiobookshelf is a self-hosted server for managing and playing
+ your audiobooks and podcasts. It ships the upstream
+ single-executable build (Node.js runtime with the web client
+ embedded); media processing and transcoding use the ffmpeg/
+ ffprobe from the TOS base system (declared via Depends).
+ .
+ The web UI opens in a new browser tab via the TOS App Center route
+ /audiobookshelf/. The backend listens on loopback only; no external
+ port is exposed. Data (config, library database, metadata, backups)
+ is stored under /var/lib/audiobookshelf. Library folders on TOS
+ shares must be granted to the app user via shared-folder
+ permissions.
+ Upstream author: advplyr (https://github.com/advplyr/audiobookshelf)
+ Packaged for TOS by Moechz

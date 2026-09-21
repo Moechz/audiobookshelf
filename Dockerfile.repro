@@ -1,0 +1,38 @@
+# Dockerfile.repro — SEA 构建的一键复现环境（V6 审核者材料，D-015）
+# 用法:
+#   docker build -t abs-repro -f Dockerfile.repro --build-arg ABS_VERSION=2.36.0 .
+#   docker run --rm -v "$PWD/out:/out" abs-repro cp /build/audiobookshelf-sea-x86_64 /out/
+# 基座 = TOS 7 同代 Ubuntu 22.04；Node 版本与 CI/workflow 锁定一致。
+FROM ubuntu:22.04
+
+ARG ABS_VERSION=2.36.0
+ARG NODE_VERSION=20.11.1
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      curl ca-certificates xz-utils python3 file \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz" \
+      -o /tmp/node.tar.xz \
+    && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
+    && rm /tmp/node.tar.xz \
+    && node -v && npm -v
+
+WORKDIR /src
+RUN curl -fL --retry 5 \
+      "https://github.com/advplyr/audiobookshelf/archive/refs/tags/v${ABS_VERSION}.tar.gz" \
+      -o src.tar.gz \
+    && sha256sum src.tar.gz \
+    && tar -xzf src.tar.gz --strip-components=1 && rm src.tar.gz
+
+# 命令序列与上游 build/linuxpackager 一致
+RUN cd client \
+    && npm ci --unsafe-perm=true --allow-root \
+    && npm run generate \
+    && cd .. \
+    && npm ci --unsafe-perm=true --allow-root \
+    && npx pkg -t node20-linux-x64 -o /build/audiobookshelf-sea-x86_64 . \
+    && chmod 0755 /build/audiobookshelf-sea-x86_64 \
+    && file /build/audiobookshelf-sea-x86_64 \
+    && sha256sum /build/audiobookshelf-sea-x86_64

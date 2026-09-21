@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audiobookshelf Server — Privacy Policy / 隐私政策</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#222}
+h1{font-size:1.5rem}h2{font-size:1.15rem;margin-top:1.6rem;border-bottom:1px solid #ddd;padding-bottom:.3rem}
+.zh{background:#f7f7f9;padding:.8rem 1rem;border-radius:6px;font-size:.92rem}
+code{background:#f0f0f2;padding:.1rem .3rem;border-radius:3px;font-size:.9em}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:.4rem .6rem;text-align:left;font-size:.92rem}
+</style>
+</head>
+<body>
+
+<h1>Audiobookshelf Server — Privacy Policy</h1>
+<p class="zh">本文档为双语隐私政策。英文版在前，中文版在后。（This document is bilingual: English first, Chinese below.）</p>
+
+<h2>1. Overview</h2>
+<p>Audiobookshelf Server is a self-hosted audiobook and podcast server that runs <strong>entirely on your own NAS device</strong> (TerraMaster TOS 7). The package (published by Moechz) contains the official upstream Audiobookshelf build and <strong>does not add any analytics, telemetry, tracking, or advertising SDKs</strong>. It does not collect, transmit, or share any personal data with the publisher.</p>
+
+<h2>2. Data stored on your device</h2>
+<table>
+<tr><th>Data</th><th>Location</th><th>Purpose</th></tr>
+<tr><td>Account names and password hashes</td><td><code>/var/lib/audiobookshelf/config/</code> (SQLite)</td><td>Login to the web UI</td></tr>
+<tr><td>Library database (books, progress, bookmarks, notes)</td><td><code>/var/lib/audiobookshelf/config/absdatabase.sqlite</code></td><td>Core application state</td></tr>
+<tr><td>Cover art, cached metadata, downloaded podcasts</td><td><code>/var/lib/audiobookshelf/metadata/</code></td><td>Media processing and offline reading</td></tr>
+<tr><td>Backups</td><td><code>/var/lib/audiobookshelf/config/backups/</code></td><td>Manual/automatic backups</td></tr>
+<tr><td>Server configuration</td><td><code>/usr/local/audiobookshelf/audiobookshelf.env</code></td><td>Server settings</td></tr>
+</table>
+<p>All of this data stays on your device. It is never uploaded by the package or the publisher.</p>
+
+<h2>3. Your rights: access, correction, deletion</h2>
+<ul>
+<li><strong>Access</strong>: open the web UI, or read the files listed above directly.</li>
+<li><strong>Correction</strong>: change settings in the web UI or edit <code>audiobookshelf.env</code> at any time.</li>
+<li><strong>Deletion</strong>: uninstall via TOS App Center (<code>apt remove</code> keeps your data; <code>apt purge</code> removes <code>/var/lib/audiobookshelf</code>). No remote copy exists anywhere because nothing was ever uploaded.</li>
+</ul>
+
+<h2>4. Third-party network access (user-initiated only)</h2>
+<p>The application contacts external services <strong>only when you enable the related features</strong>:</p>
+<ul>
+<li><strong>Podcast feeds you subscribe to</strong>: the feed URL is fetched from your NAS to the podcast's servers on the update schedule you choose.</li>
+<li><strong>Metadata/book lookups</strong> (e.g. Audible, Google Books, OpenLibrary), <strong>e-book download sources</strong>, OPDS/RSS feeds you publish, and <strong>mobile app push notifications</strong> (via the Audiobookshelf companion apps) — only when you configure them.</li>
+<li><strong>Nothing else</strong>: no data is sent to Moechz or to any Moechz-operated server.</li>
+</ul>
+
+<h2>5. Accounts and children</h2>
+<p>The application supports multiple local user accounts created by the server admin. It does not knowingly process children's data. The web UI is a local service on your LAN.</p>
+
+<h2>6. Changes and contact</h2>
+<p>Changes to this policy will ship with updated package versions. Contact the packager via the GitHub repository; contact the upstream project at <a href="https://github.com/advplyr/audiobookshelf">github.com/advplyr/audiobookshelf</a>.</p>
+
+<hr>
+
+<h1>中文版</h1>
+
+<h2>1. 概述</h2>
+<p>Audiobookshelf Server 是完全运行在<strong>您自己的 NAS 设备</strong>（TerraMaster TOS 7）上的自托管有声书/播客服务器。本包（由 Moechz 发布）仅包含 Audiobookshelf 官方上游构建，<strong>未添加任何统计、遥测、追踪或广告 SDK</strong>，不向发布者收集、传输或共享任何个人数据。</p>
+
+<h2>2. 存储在您设备上的数据</h2>
+<table>
+<tr><th>数据</th><th>位置</th><th>用途</th></tr>
+<tr><td>账户名与密码哈希</td><td><code>/var/lib/audiobookshelf/config/</code>（SQLite）</td><td>网页登录</td></tr>
+<tr><td>媒体库数据库（书籍、进度、书签、笔记）</td><td><code>/var/lib/audiobookshelf/config/absdatabase.sqlite</code></td><td>应用核心状态</td></tr>
+<tr><td>封面、元数据缓存、已下载播客</td><td><code>/var/lib/audiobookshelf/metadata/</code></td><td>媒体处理与离线收听</td></tr>
+<tr><td>备份</td><td><code>/var/lib/audiobookshelf/config/backups/</code></td><td>手动/自动备份</td></tr>
+<tr><td>服务配置</td><td><code>/usr/local/audiobookshelf/audiobookshelf.env</code></td><td>服务设置</td></tr>
+</table>
+<p>以上数据全部保存在您的设备上，本包不会将其上传到任何地方。</p>
+
+<h2>3. 您的权利：访问、更正、删除</h2>
+<ul>
+<li><strong>访问</strong>：打开网页界面，或直接读取上述文件。</li>
+<li><strong>更正</strong>：随时在网页设置或编辑 <code>audiobookshelf.env</code>。</li>
+<li><strong>删除</strong>：通过 TOS 应用中心卸载（<code>apt remove</code> 保留数据；<code>apt purge</code> 删除 <code>/var/lib/audiobookshelf</code>）。因为从未上传，不存在任何远程副本。</li>
+</ul>
+
+<h2>4. 第三方网络访问（仅在您启用相关功能时）</h2>
+<ul>
+<li><strong>您订阅的播客源</strong>：按您设置的更新频率从 NAS 直接向播客服务器拉取。</li>
+<li><strong>元数据/图书查询</strong>（如 Audible、Google Books、OpenLibrary）、<strong>电子书下载源</strong>、您发布的 OPDS/RSS、<strong>移动端推送</strong>（经官方伴侣 App）——均仅在您配置后发生。</li>
+<li><strong>其他情况零外联</strong>：不向 Moechz 或任何发布者运营的服务器发送数据。</li>
+</ul>
+
+<h2>5. 账户与未成年人</h2>
+<p>应用支持管理员创建的多个本地用户账户，不涉及未成年人数据处理。网页界面是局域网内的本地服务。</p>
+
+<h2>6. 变更与联系</h2>
+<p>本政策的变更将随包版本更新发布。打包问题请通过 GitHub 仓库联系；上游项目见 <a href="https://github.com/advplyr/audiobookshelf">github.com/advplyr/audiobookshelf</a>。</p>
+
+</body>
+</html>

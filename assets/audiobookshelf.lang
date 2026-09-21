@@ -1,0 +1,183 @@
+[en-us]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Upload your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[zh-cn]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf 是一款自托管的有声书与播客服务器。导入你的有声书和播客媒体库后，即可用网页播放器或免费的 iOS/Android 伴侣 App 在任何设备上流畅收听——支持进度同步、书签、章节、睡眠定时与离线播放。服务器自动扫描媒体库文件夹、抓取封面与元数据，并按你设置的周期下载播客更新。本包内置上游单文件构建（自带 Node.js 运行时与网页客户端；媒体处理使用系统 ffmpeg），以专用非特权用户运行并施加 systemd 沙箱加固；后端仅监听本机回环，界面经 TOS 标准网页路由 /audiobookshelf/ 以新标签页打开，不对外多开任何端口。数据保存在 /var/lib/audiobookshelf。"
+release_note = "内置 Audiobookshelf 2.36.0 上游单文件构建（sha256 校验）；媒体转码使用 TOS 系统 ffmpeg 包。首次启动会初始化数据库，随后创建管理员账号并添加媒体库。添加媒体库路径前，请先在 TOS 控制面板 → 共享文件夹 中把媒体目录的读写权限授予应用用户 audiobookshelf。"
+important    = "首次访问网页的人将创建管理员账号，请在安装后立即完成初始化。媒体库目录需在 TOS 共享文件夹权限中授予应用用户 audiobookshelf 读写。全新安装的网页界面没有默认密码。/var/lib/audiobookshelf 中的数据在 apt remove 卸载时保留，apt purge 时彻底删除。"
+
+[zh-hk]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf 是一款自架設的有聲書與 Podcast 伺服器。匯入你的有聲書和 Podcast 媒體庫後，即可用網頁播放器或免費的 iOS/Android 伴侶 App 在任何裝置上流暢收聽——支援進度同步、書籤、章節、睡眠定時與離線播放。伺服器自動掃描媒體庫資料夾、擷取封面與詮釋資料，並按你設定的週期下載 Podcast 更新。本包內建上游單檔案建置（自帶 Node.js 執行環境與網頁用戶端；媒體處理使用系統 ffmpeg），以專用非特權使用者執行並施加 systemd 沙箱強化；後端僅監聽本機回環，介面經 TOS 標準網頁路由 /audiobookshelf/ 以新分頁開啟，不對外多開任何連接埠。資料保存在 /var/lib/audiobookshelf。"
+release_note = "內建 Audiobookshelf 2.36.0 上游單檔案建置（sha256 校驗）；媒體轉碼使用 TOS 系統 ffmpeg 套件。首次啟動會初始化資料庫，隨後建立管理員帳號並新增媒體庫。新增媒體庫路徑前，請先在 TOS 控制面板 → 共享資料夾 中把媒體目錄的讀寫權限授予應用使用者 audiobookshelf。"
+important    = "首次存取網頁的人將建立管理員帳號，請在安裝後立即完成初始化。媒體庫目錄需在 TOS 共享資料夾權限中授予應用使用者 audiobookshelf 讀寫。全新安裝的網頁介面沒有預設密碼。/var/lib/audiobookshelf 中的資料在 apt remove 移除時保留，apt purge 時徹底刪除。"
+
+[fr-fr]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[de-de]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[it-it]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[es-es]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[hu-hu]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[ja-jp]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf はセルフホスト型のオーディオブック・ポッドキャストサーバーです。オーディオブックやポッドキャストのライブラリを取り込めば、Web プレイヤーまたは無料の iOS/Android コンパニオンアプリで任意のデバイスからストリーミング再生できます——再生位置の同期、ブックマーク、チャプター、スリープタイマー、オフライン再生に対応。サーバーはライブラリフォルダを自動スキャンし、カバーアートとメタデータを取得し、設定したスケジュールでポッドキャストの RSS をダウンロードします。本パッケージは公式アップストリームの単一実行ファイルビルド（Node.js ランタイム、Web クライアント、ffmpeg 内蔵）を同梱し、専用の非特権ユーザーで systemd サンドボックスにより実行されます。バックエンドはループバックのみをリッスンし、UI は TOS 標準の Web ルート /audiobookshelf/ から新しいタブで開きます。追加の外部ポートは開放されません。データは /var/lib/audiobookshelf に保存されます。"
+release_note = "アップストリーム apt リポジトリの公式 Audiobookshelf 2.36.0 単一実行ファイルビルドを同梱（sha256 検証済み）。初回起動時にデータベースを初期化した後、管理者アカウントを作成してライブラリフォルダを追加します。ライブラリパスとして追加する前に、TOS コントロールパネルの共有フォルダでメディア共有への読み書き権限をアプリユーザー audiobookshelf に付与してください。"
+important    = "最初に Web ページにアクセスした人が管理者アカウントを作成します。インストール後すぐにセットアップを完了してください。ライブラリフォルダは TOS 共有フォルダの権限設定でアプリユーザー audiobookshelf に付与する必要があります。新規インストール直後の Web UI にデフォルトパスワードはありません。/var/lib/audiobookshelf のデータは apt remove では保持され、apt purge で完全削除されます。"
+
+[ko-kr]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[pl-pl]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[ru-ru]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[tr-tr]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[pt-pt]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[ar-sa]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[cs-cz]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[he-il]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[id-id]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[nb-no]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[nl-nl]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[sv-se]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[th-th]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
+
+[vi-vn]
+name         = "Audiobookshelf Server"
+auth         = "advplyr"
+version      = "@@VERSION@@"
+descript     = "Audiobookshelf is a self-hosted audiobook and podcast server. Import your audiobook and podcast libraries, then stream to any device with the web player or the free iOS/Android companion apps - progress syncing, bookmarks, chapters, sleep timers and offline playback included. The server scans your library folders, fetches cover art and metadata, and handles podcast RSS downloads on your schedule. This package bundles the upstream single-executable build (embedded Node.js runtime and web client; media processing uses the system ffmpeg), runs as a dedicated unprivileged user in a hardened systemd sandbox, and listens on loopback only: the UI opens in a new browser tab via the standard TOS web route /audiobookshelf/, with no extra external port. Data is stored under /var/lib/audiobookshelf."
+release_note = "Bundles the Audiobookshelf 2.36.0 upstream single-executable build (sha256-verified); transcoding uses the TOS system ffmpeg package. First launch initializes the database, then you create the admin account and add library folders. Grant the app user read/write access to your media share in TOS Control Panel - Shared Folders before adding it as a library path."
+important    = "First visitor creates the admin account - complete the setup right after installing. Library folders on TOS shares must be granted to the app user 'audiobookshelf' via shared-folder permissions. The web UI has no default password on a fresh install. Data in /var/lib/audiobookshelf is kept by 'apt remove' and deleted by 'apt purge'."
