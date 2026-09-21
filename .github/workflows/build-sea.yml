@@ -98,8 +98,9 @@ jobs:
         run: |
           set -euo pipefail
           sha256sum audiobookshelf-sea-x86_64 > SHA256SUMS
-          gh release create "build-v${ABS_VERSION}" \
+          # -R 显式指定仓库：runner 无 checkout、无 git 上下文时 gh 需要
+          gh release create -R Moechz/audiobookshelf "build-v${ABS_VERSION}" \
             audiobookshelf-sea-x86_64 SHA256SUMS \
             --title "SEA build v${ABS_VERSION}" \
             --notes "Built from upstream tag v${ABS_VERSION} (src sha256: ${SRC_SHA256}) with Node ${NODE_VERSION}, replicating upstream build/linuxpackager. Reproducibility: ${REPRO}. pkg fetch-binary sha256 listed in workflow log / PROVENANCE.md." \
-            || gh release upload "build-v${ABS_VERSION}" audiobookshelf-sea-x86_64 SHA256SUMS --clobber
+            || gh release upload -R Moechz/audiobookshelf "build-v${ABS_VERSION}" audiobookshelf-sea-x86_64 SHA256SUMS --clobber
