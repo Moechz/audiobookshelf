@@ -21,6 +21,9 @@
 
 ### Fixed
 - build.sh 四处 `管道 | grep -q` 的 SIGPIPE 假失败风险改计数式/case 式（坑 33）
+- unit 补 `HOME=/var/lib/audiobookshelf`：自建 SEA 的 pkg 运行时（@yao-pkg）
+  dlopen 原生模块时解包到 $HOME 下，systemd 默认 HOME=/home/<user> 在
+  ProtectHome 下不可写 → EACCES 启动即崩（自建 SEA 首次装机实锤并修复）
 
 ### Added（verify 新断言）
 - lang 全文 beta/alpha/rc 门禁（坑 41 V11）
