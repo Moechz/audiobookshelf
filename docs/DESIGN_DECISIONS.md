@@ -175,3 +175,18 @@ node fetch binary 记录 sha256 进 PROVENANCE（官方源+锁哈希，弱一环
 - 2.36.0-2 仍是官方 PPA 预编译 SEA（compat 模式，仅供本地/真机功能验证），
   **提交商店前必须切 source 模式**（fetch CI 自建产物）
 - CI 配方文件（.github/workflows/release.yml + repro 材料）已入库待跑
+
+### D-016: arm64 支持（2026-09-25，扩展上游支持范围）
+**Decision:** 上游官方 PPA 仅 amd64（`Architecture: amd64` 实测确认），
+但自建 CI 路线打通后 arm64 门槛消失：同源码同配方，仅 pkg target 换
+`node20-linux-arm64`（@yao-pkg/pkg-fetch 3.6.5 支持，glibc>=2.35 =
+TOS 7 基座 Ubuntu 22.04）；sqlite3 有官方 linux-arm64 prebuild；
+ffmpeg 走系统包（Ubuntu 22.04 arm64 同源）。arm64 只能 `BUILD_MODE=source`
+（无上游 compat 产物）。CI 用 `ubuntu-24.04-arm` 原生 runner（坑 31：免交叉），
+双独立 job（job 级 if 不能引用 matrix，曾致 0 job 静默失败）。
+**Consequences:**
+- 双架构资产已发布：audiobookshelf_{x86_64,aarch64}.deb（各带 .sha256）
+- **arm64 无真机验证**（tnas-57 是 x86_64；用户确认无 ARM 真机）：只有
+  构建层 + CI 层自检（SEA ELF 架构/file 断言），装机行为未实证——上架
+  或分发前需一次 arm64 TOS 装机回归
+- PROVENANCE 注明「上游官方仅 amd64，本包 arm64 为同源码同配方自建扩展」

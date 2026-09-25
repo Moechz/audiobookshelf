@@ -2,6 +2,12 @@
 
 ## 2.36.0-2 — 2026-09-19
 
+### Changed（2026-09-25 补充 arm64 支持）
+- **arm64 包**（D-016）：上游官方仅 amd64，本包 arm64 为同源码同配方
+  自建扩展（build-sea workflow `ubuntu-24.04-arm` job + pkg target
+  `node20-linux-arm64`）；资产 `audiobookshelf_aarch64.deb` 已发布；
+  ⚠️ 无 ARM 真机装机验证（仅构建层 + CI 层自检）
+
 ### Changed（商店合规整改，对应指南 2026-09-19 新坑 30a/31-49）
 - **V6 整改（一票否决项）**：不再随包分发 ffmpeg/ffprobe/libnusqlite3
   预编译 ELF——改用 TOS 系统包（`Depends: ffmpeg`）+ unit 设

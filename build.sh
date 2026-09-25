@@ -25,11 +25,13 @@
 set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-# 允许命令行覆盖：BUILD_MODE=source ./build.sh ...（env 优先于 config.env）
+# 允许命令行覆盖：BUILD_MODE=source TARGET_ARCH=arm64 ./build.sh ...（env 优先于 config.env）
 _USER_BUILD_MODE="${BUILD_MODE:-}"
+_USER_TARGET_ARCH="${TARGET_ARCH:-}"
 # shellcheck source=config.env
 . "$SCRIPT_DIR/config.env"
 [ -n "$_USER_BUILD_MODE" ] && BUILD_MODE="$_USER_BUILD_MODE"
+[ -n "$_USER_TARGET_ARCH" ] && TARGET_ARCH="$_USER_TARGET_ARCH"
 
 BUILD_DIR="$SCRIPT_DIR/build"
 DL_DIR="$BUILD_DIR/downloads"
@@ -46,24 +48,27 @@ case "$TARGET_ARCH" in
   amd64)
     TOS_PLATFORM="x86_64"
     ELF_ARCH="x86-64"
+    SEA_SOURCE_FILE="audiobookshelf-sea-x86_64"
+    SEA_SOURCE_URL="${SEA_SOURCE_URL_AMD64:-}"
+    SEA_SOURCE_SHA256="${SEA_SOURCE_SHA256_AMD64:-}"
     ;;
   arm64)
-    # 上游 PPA 无 arm64 单文件二进制（截至 2.36.0），构建 arm64 包必错——
-    # 显式失败而非静默产出坏包（坑 28 的教训：错架构二进制混入）
-    echo "错误: 上游官方 PPA 未提供 arm64 构建，本包暂只支持 amd64。" >&2
-    echo "      如需 arm64：需从源码构建 SEA 单文件（npm run build + 海量依赖），" >&2
-    echo "      参见 DESIGN_DECISIONS.md D-006。" >&2
-    exit 1
+    # 上游官方 PPA 仅 amd64（Architecture: amd64 实测确认），arm64 只能
+    # source 模式（本仓 CI 自建 SEA，D-016）；compat 模式无上游产物
+    TOS_PLATFORM="aarch64"
+    ELF_ARCH="aarch64"
+    SEA_SOURCE_FILE="audiobookshelf-sea-arm64"
+    SEA_SOURCE_URL="${SEA_SOURCE_URL_ARM64:-}"
+    SEA_SOURCE_SHA256="${SEA_SOURCE_SHA256_ARM64:-}"
     ;;
   *)
-    echo "错误: 未知 TARGET_ARCH=$TARGET_ARCH（支持 amd64）" >&2
+    echo "错误: 未知 TARGET_ARCH=$TARGET_ARCH（支持 amd64/arm64）" >&2
     exit 1
     ;;
 esac
 
 UPSTREAM_DEB="audiobookshelf_${ABS_VERSION}_amd64.deb"
 UPSTREAM_URL="https://advplyr.github.io/audiobookshelf-ppa/${UPSTREAM_DEB}"
-SEA_SOURCE_FILE="audiobookshelf-sea-x86_64"
 LICENSE_FILE="LICENSE"
 # 本地测试包名用 TOS 平台名（坑 30 note：App Center 手动安装页对
 # 含 amd64 的文件名报解析失败；deb 内 Architecture 字段仍写 amd64）
@@ -141,6 +146,9 @@ stage_fetch() {
     log "  ok: $SEA_SOURCE_FILE（source 模式，CI 自建）"
   else
     # compat 模式（本地/真机功能验证）：官方 PPA deb 提取 SEA
+    # 上游 PPA 仅 amd64，arm64 无 compat 产物（只能 source 模式）
+    [ "$TARGET_ARCH" = "amd64" ] \
+      || die "上游官方 PPA 仅 amd64；arm64 请用 BUILD_MODE=source（本仓 CI 自建 SEA）"
     fetch "$UPSTREAM_URL" "$DL_DIR/$UPSTREAM_DEB"
   fi
 
