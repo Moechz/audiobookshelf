@@ -1,4 +1,4 @@
-# SEA 自建 CI（V6 整改核心，D-015）
+# SEA 自建 CI（V6 整改核心，D-015；arm64 扩展 D-016）
 #
 # 目的：商店 V6 一票否决项——"包内不得携带无审计来源的预编译 ELF"。
 # 即使上游官方发布的二进制直接打包也会被拒（sftpgo/beszel 先例，指南坑 32）。
@@ -9,16 +9,22 @@
 #   4. 连续两次构建哈希互证（可复现性自证，写入 VERIFICATION.md 数据）
 #   5. 产物发布到 build-v<版本> Release（含 SHA256SUMS）
 #
-# pkg-fetch 拉取的 node20-linux-x64 fetch binary 是唯一外部预编译物：
+# 双架构：x86_64（ubuntu-22.04）+ arm64（ubuntu-24.04-arm 原生 runner）。
+# 上游官方 PPA 仅 amd64（Architecture: amd64 实测）；arm64 为本仓源码
+# 自建扩展（同源码同配方，仅 pkg target 不同），审计链说明见 PROVENANCE。
+# 注意 arm64 的 node20 fetch binary 要求 glibc >= 2.35（Ubuntu 22.04），
+# 恰为 TOS 7 基座，产物可运行。
+#
+# pkg-fetch 拉取的 node fetch binary 是唯一外部预编译物：
 # 其 sha256 随构建日志输出并记入 PROVENANCE.md（官方源 + 锁哈希）。
 # 工具链注：上游 linuxpackager 未锁 pkg 版本；vercel/pkg 5.1.1 的
 # pkg-fetch 不支持 node20 target，采用社区维护 fork @yao-pkg/pkg@5.16.1
-# （pkg-fetch 3.6.5，支持 node20）。
+# （pkg-fetch 3.6.5，支持 node20，x64/arm64 双平台）。
 #
 # 触发：手动（workflow_dispatch）或打 v* tag。
-# 用法：Actions 页手动触发 → 填上游版本号（如 2.36.0）→ 跑完把
-#   Release 里 SEA 的 sha256 回填 config.env 的 SEA_SOURCE_SHA256，
-#   并设 BUILD_MODE=source 后跑 ./build.sh。
+# 用法：Actions 页手动触发 → 填上游版本号（如 2.36.0）与 arch（all/x86_64/arm64）
+#   → 跑完把 Release 里对应架构 SEA 的 sha256 回填 config.env 的
+#   SEA_SOURCE_SHA256_{AMD64,ARM64}，然后 BUILD_MODE=source ./build.sh。
 
 name: build-sea
 
@@ -28,6 +34,10 @@ on:
       abs_version:
         description: 'Upstream version (e.g. 2.36.0)'
         required: true
+      arch:
+        description: 'Build architecture (all, x86_64, arm64)'
+        required: false
+        default: 'all'
   push:
     tags: ['v*']
 
@@ -39,7 +49,19 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    if: ${{ github.event_name == 'push' || inputs.arch == 'all' || inputs.arch == matrix.arch }}
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            runs_on: ubuntu-22.04
+            target: node20-linux-x64
+            sea_name: audiobookshelf-sea-x86_64
+          - arch: arm64
+            runs_on: ubuntu-24.04-arm
+            target: node20-linux-arm64
+            sea_name: audiobookshelf-sea-arm64
+    runs-on: ${{ matrix.runs_on }}
     steps:
       - name: Pin upstream source
         env:
@@ -60,7 +82,7 @@ jobs:
           set -euo pipefail
           mkdir -p work && tar -xzf src.tar.gz -C work --strip-components=1
           cd work
-          # 与上游 build/linuxpackager 逐字一致的命令序列
+          # 与上游 build/linuxpackager 逐字一致的命令序列（仅 pkg target 按架构）
           cd client
           rm -rf node_modules
           npm ci --unsafe-perm=true --allow-root
@@ -68,13 +90,13 @@ jobs:
           cd ..
           rm -rf node_modules
           npm ci --unsafe-perm=true --allow-root
-          npx --yes @yao-pkg/pkg@5.16.1 -t node20-linux-x64 -o ../audiobookshelf-sea-x86_64 .
+          npx --yes @yao-pkg/pkg@5.16.1 -t "${{ matrix.target }}" -o "../${{ matrix.sea_name }}" .
           cd ..
-          chmod 0755 audiobookshelf-sea-x86_64
-          file audiobookshelf-sea-x86_64
+          chmod 0755 "${{ matrix.sea_name }}"
+          file "${{ matrix.sea_name }}"
           # pkg-fetch 拉取的 node fetch binary 哈希（记入 PROVENANCE，官方源+锁哈希）
           find ~/.cache/pkg-cache -name 'fetched-v*' -exec sha256sum {} \; || true
-          echo "SEA_SHA256=$(sha256sum audiobookshelf-sea-x86_64 | cut -d' ' -f1)" >> "$GITHUB_ENV"
+          echo "SEA_SHA256=$(sha256sum "${{ matrix.sea_name }}" | cut -d' ' -f1)" >> "$GITHUB_ENV"
 
       - name: Reproducibility self-check (second build)
         run: |
@@ -83,13 +105,13 @@ jobs:
           rm -rf client/node_modules node_modules
           cd client && npm ci --unsafe-perm=true --allow-root && cd ..
           npm ci --unsafe-perm=true --allow-root
-          npx --yes @yao-pkg/pkg@5.16.1 -t node20-linux-x64 -o ../audiobookshelf-sea-2nd .
+          npx --yes @yao-pkg/pkg@5.16.1 -t "${{ matrix.target }}" -o "../audiobookshelf-sea-2nd" .
           cd ..
-          h1=$(sha256sum audiobookshelf-sea-x86_64 | cut -d' ' -f1)
+          h1=$(sha256sum "${{ matrix.sea_name }}" | cut -d' ' -f1)
           h2=$(sha256sum audiobookshelf-sea-2nd | cut -d' ' -f1)
           echo "build1=$h1"; echo "build2=$h2"
           rm -f audiobookshelf-sea-2nd
-          # pkg 产物含时间戳时哈希可能不同：不同则警告但不禁跑（记录进 VERIFICATION）
+          # pkg 产物含时间戳时哈希可能不同：不同则警告但不禁跑（记录进 release notes）
           [ "$h1" = "$h2" ] && echo "REPRO=identical" >> "$GITHUB_ENV" || echo "REPRO=differs" >> "$GITHUB_ENV"
 
       - name: Publish to Release (build-v<version>)
@@ -97,10 +119,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          sha256sum audiobookshelf-sea-x86_64 > SHA256SUMS
+          sha256sum "${{ matrix.sea_name }}" > "SHA256SUMS-${{ matrix.arch }}"
           # -R 显式指定仓库：runner 无 checkout、无 git 上下文时 gh 需要
           gh release create -R Moechz/audiobookshelf "build-v${ABS_VERSION}" \
-            audiobookshelf-sea-x86_64 SHA256SUMS \
+            "${{ matrix.sea_name }}" "SHA256SUMS-${{ matrix.arch }}" \
             --title "SEA build v${ABS_VERSION}" \
             --notes "Built from upstream tag v${ABS_VERSION} (src sha256: ${SRC_SHA256}) with Node ${NODE_VERSION}, replicating upstream build/linuxpackager. Reproducibility: ${REPRO}. pkg fetch-binary sha256 listed in workflow log / PROVENANCE.md." \
-            || gh release upload -R Moechz/audiobookshelf "build-v${ABS_VERSION}" audiobookshelf-sea-x86_64 SHA256SUMS --clobber
+            || gh release upload -R Moechz/audiobookshelf "build-v${ABS_VERSION}" "${{ matrix.sea_name }}" "SHA256SUMS-${{ matrix.arch }}" --clobber
