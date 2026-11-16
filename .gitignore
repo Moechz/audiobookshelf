@@ -1,18 +1,15 @@
-# 构建产物与缓存
-build/
-out/
+# --- build products (the package is distributed through GitHub Releases) ---
+/build/
+/out/
 
-# macOS
-.DS_Store
-._*
-*.AppleDouble
+# --- generated copy used for manual compose testing ---
+/test/compose-resolved/
 
-# 本地工具
-.idea/
-.vscode/
-*.swp
-
-# 内部交接文档（私有，不入公开仓库，坑 20）
+# --- internal project documents: kept locally, never published ---
 AGENTS.md
 HANDOFF.md
-docs/TASK_STATE.md
+/docs/
+
+# --- build machine noise ---
+.DS_Store
+._*
